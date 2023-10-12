@@ -24,11 +24,11 @@ const getEmployee = async (req, res) => {
     res.status(501).json({ error: error.message });
   }
 };
-const getEmployeeById=async (req, res) => {
+const getEmployeeById = async (req, res) => {
   try {
     // const employee = await Employee.find();
-   
-    const employee =  await Employee.findById(req.params.id);
+
+    const employee = await Employee.findById(req.params.id);
     if (employee == null) {
       res.status(404).json({ message: "employee details are not found" });
     }
@@ -51,7 +51,7 @@ const deleteEmployee = async (req, res) => {
 };
 const updateEmpdetails = async (req, res) => {
   try {
-    const employee = await Employee.findByIdAndUpdate(req.params.id,req.body );
+    const employee = await Employee.findByIdAndUpdate(req.params.id, req.body);
     if (employee == null) {
       res.status(404).json({ message: "employee update failed" });
     }
@@ -72,6 +72,7 @@ const searchEmpdetails = async (req, res) => {
         { address: { $regex: searchTerm, $options: "i" } },
         { phoneno: { $regex: Number(searchTerm) } },
         { email: { $regex: searchTerm, $options: "i" } },
+        { gender: { $regex: searchTerm, $options: "i" } },
       ],
     });
     if (!foundEmployee) {
